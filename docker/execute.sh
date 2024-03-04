@@ -27,7 +27,7 @@ if [ "$(awk -v num1="$new_version" -v num2="$old_version" 'BEGIN { print (num1 <
     exit 1
 fi
 
-if [ "$(awk -v num1=$old_version -v num2=$new_version 'BEGIN { print (num1 < num2) }')" -eq 1 ]; then
+if [ "$(awk -v num1="$old_version" -v num2="$new_version" 'BEGIN { print (num1 < num2) }')" -eq 1 ]; then
     echo "DB upgrade available: Version was $old_version, new version is $new_version"
 
     # Run update command
