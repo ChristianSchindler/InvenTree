@@ -33,10 +33,9 @@ if [ "$(awk -v num1="$old_version" -v num2="$new_version" 'BEGIN { print (num1 <
     # Run update command
     invoke update || exit 2
 
+    # Store new version after update
+    echo "$new_version">>"$db_version_old"
     echo "Update successful"
-
-    # Copy the old version to the new version after update
-    cp  "$db_version_new" "$db_version_old"
 fi
 
 echo "Database migration/update checks completed."
