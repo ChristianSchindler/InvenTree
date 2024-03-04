@@ -2,21 +2,22 @@
 
 # File to check existence
 db_version_old="${INVENTREE_HOME}/db_version.old"
-db_version_new="${INVENTREE_HOME}/db_version"
+# get current version
+new_version=$(grep -oP 'INVENTREE_SW_VERSION\s*=\s*"\K[^"]+' InvenTree/InvenTree/version.py)
+echo "To install DB version $new_version"
 
 # Check if the file exists
 if [ ! -e "$db_version_old" ]; then
-    echo "New Installation DB is getting initialised"
+    echo "No current version found -> New Installation of the DB is getting initialised"
     # Run setup command
     invoke update || exit 2
 
+    echo "$new_version">>"$db_version_old"
     echo "Setup command completed."
-    cp  "$db_version_new" "$db_version_old"
 fi
+
 old_version=$(cat "$db_version_old")
-new_version=$(cat "$db_version_new")
-echo "old version $old_version"
-echo "new version $new_version"
+echo "Current version $old_version"
 # Number to compare (replace with your actual value)
 
 # Check if the stored version is smaller than new one

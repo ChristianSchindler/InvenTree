@@ -54,8 +54,12 @@ cd ${INVENTREE_HOME}
 
 # Check for database updates
 if($2 == 'server') then
+    if [ "${SKIP_DB_UPDATE,,}" = "true" ]; then
+      echo "Skipping database update checks"
+  else
     echo "Running database update checks"
     source ./execute.sh
+  fi
 fi
 
 # Launch the CMD *after* the ENTRYPOINT completes
