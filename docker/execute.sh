@@ -21,7 +21,7 @@ echo "Current version $old_version"
 # Number to compare (replace with your actual value)
 
 # Check if the stored version is smaller than new one
-if [ "$(awk -v num1=$new_version -v num2=$old_version 'BEGIN { print (num1 < num2) }')" -eq 1 ]; then
+if [ "$(awk -v num1="$new_version" -v num2="$old_version" 'BEGIN { print (num1 < num2) }')" -eq 1 ]; then
     echo "Error: Downgrade of version is not allowed."
     echo "Old DB version was $old_version, and the new version is $new_version"
     exit 1
